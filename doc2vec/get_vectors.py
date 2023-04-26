@@ -1,5 +1,5 @@
 from gensim.models.doc2vec import Doc2Vec
-
+import pandas as pd
 
 save_path = r'D:\PycharmProjects\parliamentary_emotions\special_embeddings\data'
 model = Doc2Vec.load(save_path + 'doc2vec_0.model')
