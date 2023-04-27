@@ -14,7 +14,7 @@ import os
 # word2vec = KeyedVectors.load('our_vectors.kv')
 
 # load stopwords from txt file
-with open('data/stopwords.txt', 'r', encoding='utf-8') as f:
+with open('data/stopwords_pl.txt', 'r', encoding='utf-8') as f:
     stopwords = f.read().splitlines()
 
 class corpusIterator(object):
@@ -76,7 +76,8 @@ if __name__=='__main__':
 
     ######### DO ZMIANY #########
     # LINIE 37 - 43 -> zmienić nazwy kolumn tak żeby odpowiadały tym w korpusie (w różnych krajach są różne nazwy klumn
-    # LINIA 83 - 84 -> zmienić pod dany kraj (różny korpus, różny kraj)
+    # LINIA 84 - 85 -> zmienić pod dany kraj (różny korpus, różny kraj)
+    # LINIA 17 -> zmienić ścieżkę do stoppwords
     #############################
 
     save_path = 'data'
@@ -90,7 +91,7 @@ if __name__=='__main__':
         temp_corpus = corpus[corpus['term'] == term]
 
         print('corpus loaded')
-        ############################################################## PO PIERWSZYM URUCHOMIENIU ZAKOMENTOWAĆ PONIŻEJ
+        ############################################################## PO PIERWSZYM URUCHOMIENIU NA KAŻDYM Z KRAJÓW ZAKOMENTOWAĆ PONIŻEJ
         phrases = Phrases(phraseIterator(temp_corpus))
         bigram = Phraser(phrases)
         print('bigram done')
