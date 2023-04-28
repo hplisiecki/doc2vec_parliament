@@ -120,5 +120,5 @@ if __name__=='__main__':
         if not os.path.exists(temp_save_path):
             os.makedirs(temp_save_path)
 
-        model0.save(temp_save_path + )
+        model0.save(temp_save_path)
         print('model saved')
