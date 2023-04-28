@@ -14,7 +14,7 @@ import os
 # word2vec = KeyedVectors.load('our_vectors.kv')
 
 # load stopwords from txt file
-with open('data/stopwords_pl.txt', 'r', encoding='utf-8') as f:
+with open('D:\GitHub\doc2vec_parliament\doc2vec_parliament\doc2vec\data\stopwords_pl.txt', 'r', encoding='utf-8') as f:
     stopwords = f.read().splitlines()
 
 class corpusIterator(object):
@@ -80,11 +80,12 @@ if __name__=='__main__':
     # LINIA 17 -> zmienić ścieżkę do stoppwords
     #############################
 
-    save_path = 'data'
+    save_path = r'D:\GitHub\doc2vec_parliament\doc2vec_parliament\doc2vec\data'
     country = 'pl' # ZMIENIĆ NA KRAJ KTÓRY JEST ANALIZOWANY
-    corpus = pd.read_csv(r'D:\PycharmProjects\parliamentary_emotions\data/abortion_with_metrics') #### TUTAJ ŁADUJEMY KORPUS
+    corpus = pd.read_csv(r"D:\PycharmProjects\data\newest_debates\corpus_pl.csv") #### TUTAJ ŁADUJEMY KORPUS
     corpus = corpus.dropna(subset=['text'])
     corpus['text'] = corpus['text'].apply(lambda x: ' '.join([word for word in x.split() if word not in (stopwords)]))
+
 
     for term in corpus['term'].unique():
         temp_corpus = corpus[corpus['term'] == term]
@@ -98,11 +99,11 @@ if __name__=='__main__':
         trigram = Phraser(tphrases)
         print('trigram done')
 
-        bigram.save(save_path + f'phraser_bigrams_{country}_{term}')
-        trigram.save(save_path + f'phraser_trigrams_{country}_{term}')
+        bigram.save(os.path.join(save_path, f'phraser_bigrams_{country}_{term}'))
+        trigram.save(os.path.join(save_path, f'phraser_trigrams_{country}_{term}'))
         ############################################################## DOTĄD ZAKOMENTOWAĆ
-        bigram = Phraser.load(save_path + f'phraser_bigrams_{country}_{term}')
-        trigram = Phraser.load(save_path + f'phraser_trigrams_{country}_{term}')
+        bigram = Phraser.load(os.path.join(save_path, f'phraser_bigrams_{country}_{term}'))
+        trigram = Phraser.load(os.path.join(save_path, f'phraser_trigrams_{country}_{term}'))
 
         print('phraser loaded')
 
@@ -116,9 +117,9 @@ if __name__=='__main__':
         print('training done')
 
         # create savepath if not exists
-        temp_save_path = os.path.join(save_path, country, str(term), 'doc2vec_0.model')
+        temp_save_path = os.path.join(save_path, country, str(term))
         if not os.path.exists(temp_save_path):
             os.makedirs(temp_save_path)
 
-        model0.save(temp_save_path)
+        model0.save(os.path.join(temp_save_path, 'doc2vec_0.model'))
         print('model saved')
