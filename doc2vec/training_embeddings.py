@@ -116,7 +116,7 @@ if __name__=='__main__':
         print('training done')
 
         # create savepath if not exists
-        temp_save_path = os.path.join(save_path, country, term, 'doc2vec_0.model')
+        temp_save_path = os.path.join(save_path, country, str(term), 'doc2vec_0.model')
         if not os.path.exists(temp_save_path):
             os.makedirs(temp_save_path)
 
