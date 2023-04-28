@@ -83,9 +83,8 @@ if __name__=='__main__':
     save_path = 'data'
     country = 'pl' # ZMIENIĆ NA KRAJ KTÓRY JEST ANALIZOWANY
     corpus = pd.read_csv(r'D:\PycharmProjects\parliamentary_emotions\data/abortion_with_metrics') #### TUTAJ ŁADUJEMY KORPUS
-
-    corpus['text'] = corpus['text'].apply(lambda x: ' '.join([word for word in x.split() if word not in (stopwords)]))
     corpus = corpus.dropna(subset=['text'])
+    corpus['text'] = corpus['text'].apply(lambda x: ' '.join([word for word in x.split() if word not in (stopwords)]))
 
     for term in corpus['term'].unique():
         temp_corpus = corpus[corpus['term'] == term]
@@ -117,9 +116,9 @@ if __name__=='__main__':
         print('training done')
 
         # create savepath if not exists
-        temp_save_path = os.path.join(save_path, country, term)
+        temp_save_path = os.path.join(save_path, country, term, 'doc2vec_0.model')
         if not os.path.exists(temp_save_path):
             os.makedirs(temp_save_path)
 
-        model0.save(temp_save_path + 'doc2vec_0.model')
+        model0.save(temp_save_path + )
         print('model saved')
